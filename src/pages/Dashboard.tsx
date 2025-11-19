@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { LogOut, MapPin, Heart, Award, Users } from "lucide-react";
 import DonorDashboard from "@/components/DonorDashboard";
 import RecipientDashboard from "@/components/RecipientDashboard";
+import bloodDrop from "@/assets/blood-drop.jpeg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -72,9 +73,20 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Background Blood Drop */}
+      <div 
+        className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url(${bloodDrop})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '50%',
+        }}
+      />
+      
       {/* Header */}
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-border bg-card/80 backdrop-blur-md relative z-10">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
             <div className="rounded-full bg-gradient-primary p-2">
@@ -95,7 +107,7 @@ const Dashboard = () => {
       </header>
 
       {/* Dashboard Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 relative z-10">
         {profile?.role === "donor" && <DonorDashboard profile={profile} />}
         {profile?.role === "recipient" && <RecipientDashboard profile={profile} />}
         {profile?.role === "hospital" && (
